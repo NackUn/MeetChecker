@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
+import com.airbnb.mvrx.MavericksView
 
-abstract class BaseFragment : Fragment() {
-
+abstract class BaseMavericksFragment : Fragment(), MavericksView {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -17,6 +17,8 @@ abstract class BaseFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         return initComposeView()
     }
+
+    override fun invalidate() = Unit
 
     abstract fun initComposeView(): View
 

@@ -12,10 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
-import com.nackun.meetchecker.presentation.base.BaseFragment
+import com.nackun.meetchecker.presentation.base.BaseMavericksFragment
 import com.nackun.meetchecker.ui.theme.MeetCheckerTheme
 
-class CheckerFragment : BaseFragment() {
+class CheckerFragment : BaseMavericksFragment() {
 
     override fun initComposeView(): View =
         ComposeView(requireContext()).apply {

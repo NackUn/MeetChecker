@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.nackun.meetchecker.presentation.base.BaseFragment
+import com.nackun.meetchecker.presentation.base.BaseMavericksFragment
 import com.nackun.meetchecker.ui.theme.MeetCheckerTheme
 
-class CalendarFragment : BaseFragment() {
+class CalendarFragment : BaseMavericksFragment() {
 
     override fun initComposeView(): View =
         ComposeView(requireContext()).apply {
