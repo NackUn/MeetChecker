@@ -8,6 +8,12 @@ import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.soloader.SoLoader
+import com.nackun.meetchecker.data.di.databaseModule
+import com.nackun.meetchecker.data.di.localDataSourceModule
+import com.nackun.meetchecker.data.di.repositoryModule
+import com.nackun.meetchecker.domain.di.useCaseModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class MeetCheckApplication : Application() {
     override fun onCreate() {
@@ -15,6 +21,7 @@ class MeetCheckApplication : Application() {
 
         initFlipper()
         initMavericks()
+        initKoin()
     }
 
     private fun initFlipper() {
@@ -30,5 +37,19 @@ class MeetCheckApplication : Application() {
 
     private fun initMavericks() {
         Mavericks.initialize(this)
+    }
+
+    private fun initKoin() {
+        startKoin {
+            androidContext(this@MeetCheckApplication)
+            modules(
+                listOf(
+                    databaseModule,
+                    localDataSourceModule,
+                    repositoryModule,
+                    useCaseModule,
+                )
+            )
+        }
     }
 }
