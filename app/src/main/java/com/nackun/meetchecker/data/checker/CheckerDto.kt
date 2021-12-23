@@ -1,6 +1,8 @@
 package com.nackun.meetchecker.data.checker
 
+import java.util.Date
+
 data class CheckerDto(
-    val dateString: String,
+    val date: Date,
     val check: Boolean
 )

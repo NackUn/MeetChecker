@@ -47,7 +47,7 @@ class CheckerViewModel(
     fun clickChecker(dateString: String, check: Boolean) {
         updateStatus(dateString, !check)
         viewModelScope.launch {
-            addCheckerUseCase(dateString, !check)
+            addCheckerUseCase(!check)
             setNow()
         }
     }
