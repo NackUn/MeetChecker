@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
 import com.nackun.meetchecker.presentation.base.BaseMavericksFragment
-import com.nackun.meetchecker.ui.theme.MeetCheckerTheme
+import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
 
 class CheckerFragment : BaseMavericksFragment() {
     @Composable

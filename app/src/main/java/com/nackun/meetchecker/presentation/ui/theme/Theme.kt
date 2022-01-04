@@ -1,4 +1,4 @@
-package com.nackun.meetchecker.ui.theme
+package com.nackun.meetchecker.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
