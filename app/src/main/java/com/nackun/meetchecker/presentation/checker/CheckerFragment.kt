@@ -33,13 +33,11 @@ class CheckerFragment : BaseMavericksFragment() {
     @Composable
     override fun FragmentPreView() {
         MeetCheckerTheme {
-            MeetCheckerTheme {
-                CheckerApp(
-                    today = "2021-12-22",
-                    check = true,
-                    checkClick = {}
-                )
-            }
+            CheckerApp(
+                today = "2021-12-22",
+                check = true,
+                checkClick = {}
+            )
         }
     }
 }
