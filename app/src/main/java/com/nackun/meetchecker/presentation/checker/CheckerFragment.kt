@@ -17,7 +17,7 @@ class CheckerFragment : BaseMavericksFragment() {
         val check by checkerViewModel.collectAsState(CheckerState::check)
 
         MeetCheckerTheme {
-            MainContent(
+            CheckerApp(
                 today = today,
                 check = check,
                 checkClick = {
@@ -34,7 +34,7 @@ class CheckerFragment : BaseMavericksFragment() {
     override fun FragmentPreView() {
         MeetCheckerTheme {
             MeetCheckerTheme {
-                MainContent(
+                CheckerApp(
                     today = "2021-12-22",
                     check = true,
                     checkClick = {}

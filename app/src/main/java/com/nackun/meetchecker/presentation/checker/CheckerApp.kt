@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainContent(today: String, check: Boolean, checkClick: () -> Unit) {
+fun CheckerApp(today: String, check: Boolean, checkClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
