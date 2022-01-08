@@ -110,17 +110,22 @@ fun DaysOfWeek() {
     }
 }
 
-val days = arrayOf(1..31)
-
-@Composable
-private fun getDayString(
+fun getDayIndex(
     monthInfo: MonthInfo,
     week: Int,
     day: Int,
-) = if ((week == 0) || (day <= monthInfo.firstEmptyDayCount)) {
-    ""
-} else {
-    days[(week * 7) + day - monthInfo.firstEmptyDayCount].toString()
+): Int? {
+    val thisDay = (week * 7) + day
+    val thisDayIndex = thisDay - monthInfo.firstEmptyDayCount
+
+    return if (
+        (thisDay < monthInfo.firstEmptyDayCount) ||
+        (thisDayIndex >= monthInfo.lastDayOnMonth)
+    ) {
+        null
+    } else {
+        thisDayIndex
+    }
 }
 
 @Composable
@@ -144,12 +149,19 @@ fun Week(
     monthInfo: MonthInfo,
     week: Int,
 ) {
+    val days = stringArrayResource(R.array.days)
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
         repeat(7) {
             Day(
-                text = "1",
+                text = getDayIndex(
+                    monthInfo = monthInfo,
+                    week = week,
+                    day = it
+                )?.let { index ->
+                    days[index]
+                } ?: "",
                 modifier = Modifier.weight(1f)
             )
         }
