@@ -11,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import com.nackun.meetchecker.R
 import java.time.LocalDate
 import java.time.Month
@@ -78,133 +80,59 @@ fun DaysOfWeekTextSat(text: String, modifier: Modifier) {
 
 @Composable
 fun DaysOfWeek() {
-    ConstraintLayout(
+    val daysOfWeek = stringArrayResource(R.array.days_of_week)
+
+    Row(
         modifier = Modifier.fillMaxWidth()
     ) {
-        val (textSun, textMon, textTue, textWed, textThu, textFri, textSat) = createRefs()
-
-        DaysOfWeekTextSun(
-            text = stringResource(R.string.sun),
-            modifier = Modifier.constrainAs(textSun) {
-                start.linkTo(parent.start)
-                end.linkTo(textMon.start)
+        repeat(7) {
+            when (it) {
+                0 -> {
+                    DaysOfWeekTextSun(
+                        text = daysOfWeek[it],
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                6 -> {
+                    DaysOfWeekTextSat(
+                        text = daysOfWeek[it],
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                else -> {
+                    DaysOfWeekText(
+                        text = daysOfWeek[it],
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
-        )
-        DaysOfWeekText(
-            text = stringResource(R.string.mon),
-            modifier = Modifier.constrainAs(textMon) {
-                start.linkTo(textSun.end)
-                end.linkTo(textTue.start)
-            }
-        )
-        DaysOfWeekText(
-            text = stringResource(R.string.tue),
-            modifier = Modifier.constrainAs(textTue) {
-                start.linkTo(textMon.end)
-                end.linkTo(textWed.start)
-            }
-        )
-        DaysOfWeekText(
-            text = stringResource(R.string.wed),
-            modifier = Modifier.constrainAs(textWed) {
-                start.linkTo(textTue.end)
-                end.linkTo(textThu.start)
-            }
-        )
-        DaysOfWeekText(
-            text = stringResource(R.string.thu),
-            modifier = Modifier.constrainAs(textThu) {
-                start.linkTo(textWed.end)
-                end.linkTo(textFri.start)
-            }
-        )
-        DaysOfWeekText(
-            text = stringResource(R.string.fri),
-            modifier = Modifier.constrainAs(textFri) {
-                start.linkTo(textThu.end)
-                end.linkTo(textSat.start)
-            }
-        )
-        DaysOfWeekTextSat(
-            text = stringResource(R.string.sat),
-            modifier = Modifier.constrainAs(textSat) {
-                start.linkTo(textFri.end)
-                end.linkTo(parent.end)
-            }
-        )
+        }
     }
+}
+
+val days = arrayOf(1..31)
+
+@Composable
+private fun getDayString(
+    monthInfo: MonthInfo,
+    week: Int,
+    day: Int,
+) = if ((week == 0) || (day <= monthInfo.firstEmptyDayCount)) {
+    ""
+} else {
+    days[(week * 7) + day - monthInfo.firstEmptyDayCount].toString()
 }
 
 @Composable
 fun Weeks(monthInfo: MonthInfo) {
-    val weeksCount = monthInfo.weeksCount
-    ConstraintLayout(
+    Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        val (week1, week2, week3, week4, week5, week6) = createRefs()
-        Week(
-            modifier = Modifier.constrainAs(week1) {
-                top.linkTo(parent.top)
-                bottom.linkTo(week2.top)
-            },
-            monthInfo = monthInfo,
-            thisWeek = 1,
-        )
-        Week(
-            modifier = Modifier.constrainAs(week2) {
-                top.linkTo(week1.bottom)
-                bottom.linkTo(week3.top)
-            },
-            monthInfo = monthInfo,
-            thisWeek = 2
-        )
-        Week(
-            modifier = Modifier.constrainAs(week3) {
-                top.linkTo(week2.bottom)
-                bottom.linkTo(week4.top)
-            },
-            monthInfo = monthInfo,
-            thisWeek = 3,
-        )
-
-        Week(
-            modifier = Modifier.constrainAs(week4) {
-                top.linkTo(week3.bottom)
-                bottom.linkTo(
-                    if (weeksCount == 4) {
-                        parent.bottom
-                    } else {
-                        week5.top
-                    }
-                )
-            },
-            monthInfo = monthInfo,
-            thisWeek = 4,
-        )
-        if (weeksCount >= 5) {
+        repeat(monthInfo.weeksCount) {
             Week(
-                modifier = Modifier.constrainAs(week5) {
-                    top.linkTo(week4.bottom)
-                    bottom.linkTo(
-                        if (weeksCount == 5) {
-                            parent.bottom
-                        } else {
-                            week6.top
-                        }
-                    )
-                },
+                modifier = Modifier.weight(1f),
                 monthInfo = monthInfo,
-                thisWeek = 5,
-            )
-        }
-        if (weeksCount >= 6) {
-            Week(
-                modifier = Modifier.constrainAs(week6) {
-                    top.linkTo(week5.bottom)
-                    bottom.linkTo(parent.bottom)
-                },
-                monthInfo = monthInfo,
-                thisWeek = 6,
+                week = it
             )
         }
     }
@@ -214,31 +142,33 @@ fun Weeks(monthInfo: MonthInfo) {
 fun Week(
     modifier: Modifier,
     monthInfo: MonthInfo,
-    thisWeek: Int,
+    week: Int,
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
-        when (thisWeek) {
-            1 -> {
-                // 첫 번째 줄을 표시
-            }
-            monthInfo.weeksCount -> {
-                // 마지막 줄을 표시
-            }
-            else -> {
-                // 나머지 줄을 표시
-            }
+    Row(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        repeat(7) {
+            Day(
+                text = "1",
+                modifier = Modifier.weight(1f)
+            )
         }
-        // Preview 용
-        Text(text = "aa")
     }
 }
 
 @Composable
-fun Day() {
-    // Preview 용
+fun Day(
+    text: String,
+    modifier: Modifier
+) {
     Text(
-        text = "a",
-        modifier = Modifier.fillMaxSize()
+        text = buildAnnotatedString {
+            withStyle(style = SpanStyle(color = Color.Black)) {
+                append(text)
+            }
+        },
+        fontSize = 30.sp,
+        modifier = modifier
     )
 }
 
