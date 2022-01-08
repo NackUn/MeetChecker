@@ -8,4 +8,14 @@
     <string name="thu">목</string>
     <string name="fri">금</string>
     <string name="sat">토</string>
+
+    <string-array name="days_of_week">
+        <item>일</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+    </string-array>
 </resources>
