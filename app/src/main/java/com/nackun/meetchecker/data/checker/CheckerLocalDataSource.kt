@@ -12,4 +12,7 @@ class CheckerLocalDataSource(
 
     override suspend fun addChecker(checkerDto: CheckerDto) =
         checkerDao.insertChecker(checkerDto.toEntity())
+
+    override suspend fun getMonthCheckers(likeMonth: String): List<CheckerDto>? =
+        checkerDao.selectMonthCheckers(likeMonth)?.map { it.toDto() }
 }

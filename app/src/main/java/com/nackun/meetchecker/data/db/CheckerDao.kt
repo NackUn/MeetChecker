@@ -12,4 +12,7 @@ interface CheckerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertChecker(checkerEntity: CheckerEntity)
+
+    @Query("SELECT * FROM checker_table WHERE date_string LIKE :likeMonth||'%' GROUP BY date_string ORDER BY last_modified_date")
+    suspend fun selectMonthCheckers(likeMonth: String): List<CheckerEntity>?
 }

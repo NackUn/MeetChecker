@@ -13,4 +13,7 @@ class CheckerRepositoryImpl(
 
     override suspend fun addChecker(checker: Checker) =
         checkerDataSource.addChecker(checker.toDto())
+
+    override suspend fun getMonthCheckers(likeMonth: String): List<Checker>? =
+        checkerDataSource.getMonthCheckers(likeMonth)?.map { it.toModel() }
 }
