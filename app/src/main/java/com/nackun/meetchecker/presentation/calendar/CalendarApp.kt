@@ -15,12 +15,24 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nackun.meetchecker.R
+import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
 import java.time.LocalDate
 import java.time.Month
 import kotlin.math.ceil
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun CalendarAppPreView() {
+    MeetCheckerTheme {
+        CalendarApp(localDate = LocalDate.now())
+    }
+}
 
 @Composable
 fun CalendarApp(localDate: LocalDate) {

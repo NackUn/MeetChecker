@@ -10,7 +10,23 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun CheckerAppPreview() {
+    MeetCheckerTheme {
+        CheckerApp(
+            today = "2021-12-22",
+            check = true,
+            checkClick = {}
+        )
+    }
+}
 
 @Composable
 fun CheckerApp(today: String, check: Boolean, checkClick: () -> Unit) {

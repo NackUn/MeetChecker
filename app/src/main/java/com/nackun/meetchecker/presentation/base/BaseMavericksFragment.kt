@@ -30,7 +30,4 @@ abstract class BaseMavericksFragment : Fragment(), MavericksView {
 
     @Composable
     abstract fun FragmentView()
-
-    @Composable
-    abstract fun FragmentPreView()
 }
