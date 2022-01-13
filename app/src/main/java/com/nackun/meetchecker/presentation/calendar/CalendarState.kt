@@ -7,5 +7,5 @@ import java.time.LocalDate
 
 data class CalendarState(
     val now: LocalDate = getNowLocalDate(),
-    val list: List<Checker> = listOf(),
+    val checkers: List<Checker> = emptyList(),
 ) : MavericksState

@@ -1,8 +1,9 @@
 package com.nackun.meetchecker.presentation.calendar
 
-import android.util.Log
 import com.nackun.meetchecker.domain.usecase.GetMonthCheckersUseCase
 import com.nackun.meetchecker.presentation.base.BaseMavericksViewModel
+import com.nackun.meetchecker.presentation.model.toModel
+import com.nackun.meetchecker.presentation.util.toMonthString
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -14,10 +15,19 @@ class CalendarViewModel(
     private val getMonthCheckersUseCase: GetMonthCheckersUseCase by inject()
 
     init {
-        // 해당 월의 Checker 리스트를 전부 가지고와서 보여줍니다.
+        setStateCheckers(state.now.toMonthString())
+    }
+
+    private fun setStateCheckers(likeMonth: String) {
         viewModelScope.launch {
-            getMonthCheckersUseCase("2021-12").also {
-                Log.d("aa12", "it : ${it.toString()}")
+            getMonthCheckersUseCase(likeMonth).also {
+                setState {
+                    copy(
+                        checkers = it.map { checker ->
+                            checker.toModel()
+                        }
+                    )
+                }
             }
         }
     }

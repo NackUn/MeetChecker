@@ -13,9 +13,13 @@ class CalendarFragment : BaseMavericksFragment() {
         val calendarViewModel: CalendarViewModel = mavericksViewModel()
 
         val now by calendarViewModel.collectAsState(CalendarState::now)
+        val checkers by calendarViewModel.collectAsState(CalendarState::checkers)
 
         MeetCheckerTheme {
-            CalendarApp(localDate = now)
+            CalendarApp(
+                localDate = now,
+                checkers = checkers
+            )
         }
     }
 }

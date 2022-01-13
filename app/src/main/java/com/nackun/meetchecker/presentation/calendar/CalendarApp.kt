@@ -1,5 +1,6 @@
 package com.nackun.meetchecker.presentation.calendar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +20,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nackun.meetchecker.R
+import com.nackun.meetchecker.presentation.model.Checker
 import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
+import com.nackun.meetchecker.presentation.util.toMonthString
 import java.time.LocalDate
 import java.time.Month
 import kotlin.math.ceil
@@ -30,16 +33,23 @@ import kotlin.math.ceil
 @Composable
 fun CalendarAppPreView() {
     MeetCheckerTheme {
-        CalendarApp(localDate = LocalDate.now())
+        CalendarApp(
+            localDate = LocalDate.now(),
+            checkers = emptyList()
+        )
     }
 }
 
 @Composable
-fun CalendarApp(localDate: LocalDate) {
+fun CalendarApp(localDate: LocalDate, checkers: List<Checker>) {
     Column {
-        Month(localDate.month)
+        Month(month = localDate.month)
         DaysOfWeek()
-        Weeks(localDate.toMonthInfo())
+        Weeks(
+            monthInfo = localDate.toMonthInfo(),
+            checkers = checkers,
+            monthString = localDate.toMonthString()
+        )
     }
 }
 
@@ -141,7 +151,11 @@ fun getDayIndex(
 }
 
 @Composable
-fun Weeks(monthInfo: MonthInfo) {
+fun Weeks(
+    monthInfo: MonthInfo,
+    checkers: List<Checker>,
+    monthString: String
+) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -149,7 +163,9 @@ fun Weeks(monthInfo: MonthInfo) {
             Week(
                 modifier = Modifier.weight(1f),
                 monthInfo = monthInfo,
-                week = it
+                week = it,
+                checkers = checkers,
+                monthString = monthString
             )
         }
     }
@@ -160,6 +176,8 @@ fun Week(
     modifier: Modifier,
     monthInfo: MonthInfo,
     week: Int,
+    checkers: List<Checker>,
+    monthString: String
 ) {
     val days = stringArrayResource(R.array.days)
     Row(
@@ -174,7 +192,10 @@ fun Week(
                 )?.let { index ->
                     days[index]
                 } ?: "",
-                modifier = Modifier.weight(1f)
+                textColor = it,
+                modifier = Modifier.weight(1f),
+                checkers = checkers,
+                monthString = monthString
             )
         }
     }
@@ -183,16 +204,42 @@ fun Week(
 @Composable
 fun Day(
     text: String,
-    modifier: Modifier
+    textColor: Int,
+    modifier: Modifier,
+    checkers: List<Checker>,
+    monthString: String
 ) {
+    val dateStrings = checkers.filter {
+        it.check
+    }.map {
+        it.dateString
+    }
+    val dateString = if (text.length > 1) {
+        "$monthString-$text"
+    } else {
+        "$monthString-0$text"
+    }
+
+    val color = when (textColor) {
+        0 -> Color.Red
+        6 -> Color.Blue
+        else -> Color.Black
+    }
+
+    val background = if (dateString in dateStrings) {
+        Color.Yellow
+    } else {
+        Color.White
+    }
+
     Text(
         text = buildAnnotatedString {
-            withStyle(style = SpanStyle(color = Color.Black)) {
+            withStyle(style = SpanStyle(color = color)) {
                 append(text)
             }
         },
         fontSize = 30.sp,
-        modifier = modifier
+        modifier = modifier.background(background)
     )
 }
 
