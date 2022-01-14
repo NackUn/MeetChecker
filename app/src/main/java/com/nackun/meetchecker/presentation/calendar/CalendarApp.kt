@@ -181,7 +181,7 @@ fun Week(
 ) {
     val days = stringArrayResource(R.array.days)
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxSize()
     ) {
         repeat(7) {
             Day(
@@ -239,7 +239,9 @@ fun Day(
             }
         },
         fontSize = 30.sp,
-        modifier = modifier.background(background)
+        modifier = modifier
+            .fillMaxSize()
+            .background(background)
     )
 }
 
