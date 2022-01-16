@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,7 +66,7 @@ fun Month(month: Month) {
         Text(
             text = month.value.toString(),
             fontSize = 52.sp,
-            modifier = Modifier.padding(top = 20.dp, bottom = 20.dp)
+            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp)
         )
     }
 }
@@ -77,8 +80,9 @@ fun DaysOfWeekText(
     Text(
         text = text,
         modifier = modifier,
-        fontSize = 28.sp,
-        color = color
+        fontSize = 20.sp,
+        color = color,
+        textAlign = TextAlign.Center
     )
 }
 
@@ -105,7 +109,9 @@ fun DaysOfWeek() {
     val daysOfWeek = stringArrayResource(R.array.days_of_week)
 
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .padding(start = 20.dp, end = 20.dp)
+            .fillMaxWidth()
     ) {
         repeat(7) {
             when (it) {
@@ -181,7 +187,10 @@ fun Week(
 ) {
     val days = stringArrayResource(R.array.days)
     Row(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .padding(start = 20.dp, end = 20.dp)
+            .fillMaxSize(),
+        verticalAlignment = Alignment.Top
     ) {
         repeat(7) {
             Day(
@@ -232,17 +241,29 @@ fun Day(
         Color.White
     }
 
-    Text(
-        text = buildAnnotatedString {
-            withStyle(style = SpanStyle(color = color)) {
-                append(text)
-            }
-        },
-        fontSize = 30.sp,
+    Column(
         modifier = modifier
             .fillMaxSize()
-            .background(background)
-    )
+            .background(background),
+    ) {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(Color.Black)
+        )
+        Text(
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(color = color)) {
+                    append(text)
+                }
+            },
+            fontSize = 20.sp,
+            modifier = modifier
+                .fillMaxSize(),
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 private fun LocalDate.toMonthInfo() = MonthInfo(
