@@ -8,9 +8,11 @@ import com.nackun.meetchecker.presentation.base.BaseMavericksFragment
 import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
 
 class CheckerFragment : BaseMavericksFragment() {
+    private lateinit var checkerViewModel: CheckerViewModel
+
     @Composable
     override fun FragmentView() {
-        val checkerViewModel: CheckerViewModel = mavericksViewModel()
+        checkerViewModel = mavericksViewModel()
 
         val today by checkerViewModel.collectAsState(CheckerState::today)
         val check by checkerViewModel.collectAsState(CheckerState::check)

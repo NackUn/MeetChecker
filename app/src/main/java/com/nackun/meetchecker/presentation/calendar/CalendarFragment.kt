@@ -8,9 +8,11 @@ import com.nackun.meetchecker.presentation.base.BaseMavericksFragment
 import com.nackun.meetchecker.presentation.ui.theme.MeetCheckerTheme
 
 class CalendarFragment : BaseMavericksFragment() {
+    private lateinit var calendarViewModel: CalendarViewModel
+
     @Composable
     override fun FragmentView() {
-        val calendarViewModel: CalendarViewModel = mavericksViewModel()
+        calendarViewModel = mavericksViewModel()
 
         val now by calendarViewModel.collectAsState(CalendarState::now)
         val checkers by calendarViewModel.collectAsState(CalendarState::checkers)
@@ -21,5 +23,10 @@ class CalendarFragment : BaseMavericksFragment() {
                 checkers = checkers
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        calendarViewModel.setThisMonthCheckers()
     }
 }

@@ -9,12 +9,16 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class CalendarViewModel(
-    state: CalendarState
+    private val state: CalendarState
 ) : BaseMavericksViewModel<CalendarState>(state), KoinComponent {
 
     private val getMonthCheckersUseCase: GetMonthCheckersUseCase by inject()
 
     init {
+        setThisMonthCheckers()
+    }
+
+    fun setThisMonthCheckers() {
         setStateCheckers(state.now.toMonthString())
     }
 
