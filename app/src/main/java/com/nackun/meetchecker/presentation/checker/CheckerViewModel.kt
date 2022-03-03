@@ -1,5 +1,6 @@
 package com.nackun.meetchecker.presentation.checker
 
+import com.airbnb.mvrx.MavericksState
 import com.nackun.meetchecker.domain.usecase.AddCheckerUseCase
 import com.nackun.meetchecker.domain.usecase.GetTodayCheckerUseCase
 import com.nackun.meetchecker.presentation.base.BaseMavericksViewModel
@@ -52,3 +53,8 @@ class CheckerViewModel(
         }
     }
 }
+
+data class CheckerState(
+    val today: String = "",
+    val check: Boolean = false
+) : MavericksState
