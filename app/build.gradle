@@ -98,4 +98,8 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
     testImplementation "io.insert-koin:koin-test:$koin_version"
+
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
 }
