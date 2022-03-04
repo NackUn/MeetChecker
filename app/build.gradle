@@ -80,8 +80,10 @@ dependencies {
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    // mavericks
     implementation "com.airbnb.android:mavericks:$mavericks_version"
     implementation "com.airbnb.android:mavericks-compose:$mavericks_version"
+    testImplementation "com.airbnb.android:mavericks-testing:$mavericks_version"
 
     // room
     implementation "androidx.room:room-runtime:$room_version"
