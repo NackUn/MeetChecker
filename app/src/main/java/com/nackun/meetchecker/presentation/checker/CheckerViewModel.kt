@@ -45,6 +45,7 @@ class CheckerViewModel(
         copy(today = dateString, check = check)
     }
 
+    // TODO 리펙토링 필요
     fun clickChecker(dateString: String, check: Boolean) {
         updateStatus(dateString, !check)
         viewModelScope.launch {

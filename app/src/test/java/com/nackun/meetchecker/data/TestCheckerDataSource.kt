@@ -3,16 +3,16 @@ package com.nackun.meetchecker.data
 import com.nackun.meetchecker.data.checker.CheckerDataSource
 import com.nackun.meetchecker.data.checker.CheckerDto
 import com.nackun.meetchecker.data.db.CheckerEntity
-import com.nackun.meetchecker.data.util.getNowString
 import com.nackun.meetchecker.data.util.toDto
 import com.nackun.meetchecker.data.util.toEntity
+import com.nackun.meetchecker.domain.util.getNowSimpleString
 
 internal class TestCheckerDataSource : CheckerDataSource {
     private val checkerDtoList: MutableList<CheckerEntity> = mutableListOf()
 
     override suspend fun getTodayChecker(): CheckerDto? =
         checkerDtoList.filter {
-            it.dateString == getNowString()
+            it.dateString == getNowSimpleString()
         }.ifEmpty {
             null
         }?.last()?.toDto()
