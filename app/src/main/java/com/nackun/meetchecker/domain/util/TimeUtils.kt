@@ -11,4 +11,6 @@ private val detailDateTimeFormatter = DateTimeFormatter.ofPattern(detailDateForm
 fun getNowSimpleString(): String = getNowLocalDateTime().format(simpleDateTimeFormatter)
 fun getNowDetailString(): String = getNowLocalDateTime().format(detailDateTimeFormatter)
 
+fun LocalDateTime.toSimpleString(): String = this.format(simpleDateTimeFormatter)
+
 private fun getNowLocalDateTime(): LocalDateTime = LocalDateTime.now()
