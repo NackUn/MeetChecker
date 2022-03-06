@@ -57,6 +57,7 @@ internal class CheckerViewModelTest : ViewModelTest() {
             // 날짜가 바뀌면
             // TODO 날짜가 바뀌면 State 가 변경되었는지 확인합니다.
             //  날짜를 체크하는 비즈니스 로직 리팩토링 필요
+            //  ListenTomorrowUseCase()
 
             val state = viewModel.awaitState()
             val tomorrow = LocalDateTime.now().plusDays(1).toSimpleString()
