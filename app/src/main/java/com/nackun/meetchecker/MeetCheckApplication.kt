@@ -11,6 +11,7 @@ import com.facebook.soloader.SoLoader
 import com.nackun.meetchecker.data.di.databaseModule
 import com.nackun.meetchecker.data.di.localDataSourceModule
 import com.nackun.meetchecker.data.di.repositoryModule
+import com.nackun.meetchecker.di.androidModule
 import com.nackun.meetchecker.domain.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -44,6 +45,7 @@ class MeetCheckApplication : Application() {
             androidContext(this@MeetCheckApplication)
             modules(
                 listOf(
+                    androidModule,
                     databaseModule,
                     localDataSourceModule,
                     repositoryModule,
