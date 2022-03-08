@@ -4,15 +4,16 @@ import com.airbnb.mvrx.MavericksState
 import com.nackun.meetchecker.di.KoinMavericksViewModelFactory
 import com.nackun.meetchecker.domain.usecase.AddCheckerUseCase
 import com.nackun.meetchecker.domain.usecase.GetTodayCheckerUseCase
+import com.nackun.meetchecker.domain.usecase.ListenTomorrowUseCase
 import com.nackun.meetchecker.presentation.base.BaseMavericksViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 class CheckerViewModel constructor(
     state: CheckerState,
     val addCheckerUseCase: AddCheckerUseCase,
     val getTodayCheckerUseCase: GetTodayCheckerUseCase,
+    val listenTomorrowUseCase: ListenTomorrowUseCase,
 ) : BaseMavericksViewModel<CheckerState>(state) {
 
     init {
@@ -29,13 +30,8 @@ class CheckerViewModel constructor(
     }
 
     private suspend fun checkToday() {
-        var today = LocalDate.now()
-        while (true) {
-            if (today != LocalDate.now()) {
-                today = LocalDate.now()
-                setNow()
-            }
-            delay(100L)
+        listenTomorrowUseCase().collect {
+            setNow()
         }
     }
 

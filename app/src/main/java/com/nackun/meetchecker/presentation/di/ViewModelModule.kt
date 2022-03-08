@@ -10,6 +10,7 @@ val viewModelModule = module {
             state,
             get(),
             get(),
+            get(),
         )
     }
 }
