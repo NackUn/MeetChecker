@@ -1,21 +1,19 @@
 package com.nackun.meetchecker.presentation.checker
 
 import com.airbnb.mvrx.MavericksState
+import com.nackun.meetchecker.di.KoinMavericksViewModelFactory
 import com.nackun.meetchecker.domain.usecase.AddCheckerUseCase
 import com.nackun.meetchecker.domain.usecase.GetTodayCheckerUseCase
 import com.nackun.meetchecker.presentation.base.BaseMavericksViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import java.time.LocalDate
 
-class CheckerViewModel(
-    state: CheckerState
-) : BaseMavericksViewModel<CheckerState>(state), KoinComponent {
-
-    private val addCheckerUseCase: AddCheckerUseCase by inject()
-    private val getTodayCheckerUseCase: GetTodayCheckerUseCase by inject()
+class CheckerViewModel constructor(
+    state: CheckerState,
+    val addCheckerUseCase: AddCheckerUseCase,
+    val getTodayCheckerUseCase: GetTodayCheckerUseCase,
+) : BaseMavericksViewModel<CheckerState>(state) {
 
     init {
         viewModelScope.launch {
@@ -53,6 +51,9 @@ class CheckerViewModel(
             setNow()
         }
     }
+
+    companion object :
+        KoinMavericksViewModelFactory<CheckerViewModel, CheckerState>(CheckerViewModel::class.java)
 }
 
 data class CheckerState(

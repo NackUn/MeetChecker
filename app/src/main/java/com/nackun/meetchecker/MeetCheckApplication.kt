@@ -13,6 +13,7 @@ import com.nackun.meetchecker.data.di.databaseModule
 import com.nackun.meetchecker.data.di.repositoryModule
 import com.nackun.meetchecker.di.androidModule
 import com.nackun.meetchecker.domain.di.useCaseModule
+import com.nackun.meetchecker.presentation.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -50,6 +51,7 @@ class MeetCheckApplication : Application() {
                     dataSourceModule,
                     repositoryModule,
                     useCaseModule,
+                    viewModelModule,
                 )
             )
         }
