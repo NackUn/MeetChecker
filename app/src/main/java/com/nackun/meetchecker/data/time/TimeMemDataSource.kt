@@ -1,11 +1,13 @@
 package com.nackun.meetchecker.data.time
 
+import com.nackun.meetchecker.data.time.TimeDataSource.Companion.simpleDateTimeFormatter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class TimeMemDataSource(
     appScope: CoroutineScope
@@ -28,4 +30,7 @@ class TimeMemDataSource(
 
     override fun listenTomorrow(): Flow<Unit> =
         tomorrowFlow
+
+    override fun getNowSimpleString(): String =
+        LocalDateTime.now().format(simpleDateTimeFormatter)
 }

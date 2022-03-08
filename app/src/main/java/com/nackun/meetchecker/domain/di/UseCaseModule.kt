@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
     factory { AddCheckerUseCase(get()) }
-    factory { GetTodayCheckerUseCase(get()) }
+    factory { GetTodayCheckerUseCase(get(), get()) }
     factory { GetMonthCheckersUseCase(get()) }
     factory { ListenTomorrowUseCase(get()) }
 }

@@ -9,4 +9,7 @@ class TimeRepositoryImpl(
 
     override suspend fun listenTomorrow(): Flow<Unit> =
         timeDataSource.listenTomorrow()
+
+    override fun getNowSimpleString(): String =
+        timeDataSource.getNowSimpleString()
 }
