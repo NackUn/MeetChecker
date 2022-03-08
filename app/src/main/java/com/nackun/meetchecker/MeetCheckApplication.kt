@@ -8,8 +8,8 @@ import com.facebook.flipper.plugins.databases.DatabasesFlipperPlugin
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
 import com.facebook.flipper.plugins.inspector.InspectorFlipperPlugin
 import com.facebook.soloader.SoLoader
+import com.nackun.meetchecker.data.di.dataSourceModule
 import com.nackun.meetchecker.data.di.databaseModule
-import com.nackun.meetchecker.data.di.localDataSourceModule
 import com.nackun.meetchecker.data.di.repositoryModule
 import com.nackun.meetchecker.di.androidModule
 import com.nackun.meetchecker.domain.di.useCaseModule
@@ -47,7 +47,7 @@ class MeetCheckApplication : Application() {
                 listOf(
                     androidModule,
                     databaseModule,
-                    localDataSourceModule,
+                    dataSourceModule,
                     repositoryModule,
                     useCaseModule,
                 )

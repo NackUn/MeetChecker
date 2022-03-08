@@ -7,7 +7,7 @@ import com.nackun.meetchecker.data.time.TimeDataSource
 import com.nackun.meetchecker.data.time.TimeMemDataSource
 import org.koin.dsl.module
 
-val localDataSourceModule = module {
+val dataSourceModule = module {
     single { get<MeetCheckerDatabase>().checkerDao() }
     single<CheckerDataSource> { CheckerLocalDataSource(get()) }
 
